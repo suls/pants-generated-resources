@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Properties properties = new Properties();
 
-        Optional<InputStream> stream = Optional.ofNullable(Main.class.getClassLoader().getResourceAsStream("/generated.properties"));
+        Optional<InputStream> stream = Optional.ofNullable(Main.class.getClassLoader().getResourceAsStream("generated.properties"));
         stream.map(s -> {
             try {
                 properties.load(s);
@@ -19,6 +19,6 @@ public class Main {
             return properties;
         });
 
-        System.out.printf("hello, %s!", properties.getProperty("who", "unknown"));
+        System.out.printf("hello, %s!\n", properties.getProperty("who", "unknown"));
     }
 }
