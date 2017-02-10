@@ -14,6 +14,10 @@ python:
 env:
   global:
   - JAVA_HOME="$HOME/opt/jdk1.8.0_40"
+  matrix:
+  - COMMAND="./pants run src/java/org/suls/pants:app"
+  - COMMAND="./pants bundle src/java/org/suls/pants:app && java -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
+  - COMMAND="./pants bundle src/java/org/suls/pants:app --bundle-jvm-deployjar && java -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
 before_script: |
   if ! "$HOME"/opt/jdk1.8.0_40/bin/java -version; then
     mkdir -p ~/opt
@@ -24,6 +28,5 @@ before_script: |
   fi
 script: |
   uname -a
-  ./pants buildgen
   git diff --exit-code || exit "$?"
-  ./pants run src/java/org/suls/pants:app
+  eval $COMMAND
