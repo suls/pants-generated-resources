@@ -14,10 +14,11 @@ python:
 env:
   global:
   - JAVA_HOME="$HOME/opt/jdk1.8.0_40"
+  - JAVA_BIN="$HOME/opt/jdk1.8.0_40/bin/java"
   matrix:
   - COMMAND="./pants run src/java/org/suls/pants:app"
-  - COMMAND="./pants bundle src/java/org/suls/pants:app && java -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
-  - COMMAND="./pants bundle src/java/org/suls/pants:app --bundle-jvm-deployjar && java -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
+  - COMMAND="./pants bundle src/java/org/suls/pants:app && $JAVA_BIN -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
+  - COMMAND="./pants bundle src/java/org/suls/pants:app --bundle-jvm-deployjar && $JAVA_BIN -jar dist/src.java.org.suls.pants.app-bundle/main.jar"
 before_script: |
   if ! "$HOME"/opt/jdk1.8.0_40/bin/java -version; then
     mkdir -p ~/opt
